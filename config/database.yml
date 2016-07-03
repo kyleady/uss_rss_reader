@@ -7,5 +7,5 @@ development:
   <<: *default
   database: uss_rss_reader_development
   username: postgres
-  password: password
+  password: PASSWORD
   port: 5433
