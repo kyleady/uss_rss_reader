@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 
+gem 'bundler', '>=1.8.4'  #added to enable https://rails-assets.org/#/
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0'
 gem 'pg', '>= 0.19.0.beta'
@@ -28,6 +29,11 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+#doing the following to enable https://rails-assets.org/#/
+source 'http://insecure.rails-assets.org' do
+  gem 'rails-assets-bootstrap'
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
