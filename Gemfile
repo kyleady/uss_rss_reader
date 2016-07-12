@@ -33,8 +33,6 @@ gem 'jbuilder', '~> 2.5'
 #doing the following to enable https://rails-assets.org/#/
 source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-bootstrap'
-  gem 'rails-assets-angular'
-  gem 'rails-assets-leaflet'
 end
 
 group :development, :test do
