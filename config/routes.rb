@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get 'feeds/new'
 
+  get 'feeds/test', to: 'feeds#test'
+
   get 'welcome/index'
 
   root 'welcome#index'

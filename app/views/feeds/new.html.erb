@@ -1,2 +1,6 @@
 <h1>Feeds#new</h1>
-<p>Find me in app/views/feeds/new.html.erb</p>
+<%= form_tag("/feeds/test", method: "get") do %>
+  <%= label_tag(:q, "URL:") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Submit") %>
+<% end %>

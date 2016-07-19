@@ -8,4 +8,4 @@ development:
   database: uss_rss_reader_development
   username: postgres
   password: PASSWORD
-  port: 5433
+  port: 5432
