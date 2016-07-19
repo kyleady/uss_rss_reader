@@ -1,5 +1,5 @@
 <h1>Feeds#new</h1>
-<%= form_tag("/feeds/test", method: "get") do %>
+<%= form_tag("/feeds/parse_rss", method: "get") do %>
   <%= label_tag(:q, "URL:") %>
   <%= text_field_tag(:q) %>
   <%= submit_tag("Submit") %>

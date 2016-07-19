@@ -6,11 +6,11 @@ class FeedsController < ApplicationController
     puts "This is a string for FeedsController < ApplicationController."
   end
 
-  def test
+  def parse_rss
     url = params[:q]
     puts "\n\n\n==URL=="
     puts url
-    open(url) do |rss|    
+    open(url) do |rss|
       feed = RSS::Parser.parse(rss)
       puts "Title: #{feed.channel.title}"
       feed.items.each do |item|
