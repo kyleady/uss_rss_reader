@@ -6,19 +6,13 @@ class FeedsController < ApplicationController
     puts "This is a string for FeedsController < ApplicationController."
   end
 
+  #takes the user's submited url and parses the rss feed there
   def parse_rss
-    url = params[:q]
-    puts "\n\n\n==URL=="
-    puts url
-    open(url) do |rss|
-      feed = RSS::Parser.parse(rss)
-      puts "Title: #{feed.channel.title}"
-      feed.items.each do |item|
-        puts "Item: #{item.title}"
-      end
-    end
-    puts "\n\n\n"
+    #creates a new Feed model, within the initialization the rss feed is pulled apart and saved
+    feed = Feed.new(params[:q])
+    #put the feed to the terminal to ensure everything is working correctly
+    feed.show
+    #let the user return to adding more feeds
     render :action => "new"
-
   end
 end

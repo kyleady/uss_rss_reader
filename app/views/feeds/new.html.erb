@@ -1,5 +1,7 @@
+<%#Header of the page%>
 <h1>Feeds#new</h1>
-<%= form_tag("/feeds/parse_rss", method: "get") do %>
+<%#Creates a label, text entry, and submit button%>
+<%= form_tag("/feeds/parse_rss", method: "post") do %>
   <%= label_tag(:q, "URL:") %>
   <%= text_field_tag(:q) %>
   <%= submit_tag("Submit") %>
