@@ -1,5 +1,5 @@
 class Feed < ActiveRecord::Base
-  include ActiveModel::Validations
+  #include ActiveModel::Validations
 
 
   attr_accessor :title, :url, :description
@@ -8,14 +8,12 @@ class Feed < ActiveRecord::Base
   serialize :items, Array
 
   #every feed must have a title, url, and description
-  validates :title, presence: true
-  validates :url, presence: true
-  validates :description, presence: true
+  #validates :title, presence: true
+  #validates :url, presence: true
+  #validates :description, presence: true
 
   #called when a new Feed is created
-  def initialize(userURL)
-    #save the url
-    @url = userURL
+  def update
     #prase the url as an rss feed
     open(@url) do |rss|
       getFeed = RSS::Parser.parse(rss)
@@ -40,9 +38,13 @@ class Feed < ActiveRecord::Base
     puts "<Description>"
     puts @description
     puts "<Items>"
-    @items.each do |item|
-      item.show
-      puts "\n"
+    if @items
+      @items.each do |item|
+        item.show
+        puts "\n"
+      end
+    else
+      puts @items
     end
   end
 

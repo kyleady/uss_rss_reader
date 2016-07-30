@@ -1,8 +1,23 @@
 <%#Header of the page%>
 <h1>Feeds#new</h1>
 <%#Creates a label, text entry, and submit button%>
-<%= form_tag("/feeds/parse_rss", method: "post") do %>
-  <%= label_tag(:q, "URL:") %>
-  <%= text_field_tag(:q) %>
-  <%= submit_tag("Submit") %>
+<%#<%= form_tag("/feeds/parse_rss", method: "post") do %>
+  <%#<%= label_tag(:q, "URL:") %>
+  <%#<%= text_field_tag(:q) %>
+  <%#<%= submit_tag("Submit") %>
+<%#<% end %>
+
+<%= form_for(@feed) do |f| %>
+  <ul>
+  <% @feed.errors.full_messages.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+  </ul>
+  <p>
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
 <% end %>
