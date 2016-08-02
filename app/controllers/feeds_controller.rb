@@ -39,7 +39,7 @@ class FeedsController < ApplicationController
       @feed.save
     end
 
-    redirect_to feed_path(@new_feed)
+    redirect_to feed_path(@feed)
   end
 
   #takes the user's submited url and parses the rss feed there
