@@ -16,18 +16,30 @@ class FeedsController < ApplicationController
   end
 
   def create
-    @feed = Feed.new
-    puts "\n\n\n"
-    puts params[:feed][:url]
-    @feed.url = params[:feed][:url]
-    @feed.show
-    @feed.update
-    @feed.show
-    @feed.save
-    puts "\n\n<Save Errors>"
-    puts @feed.save!
+    open(params[:feed][:url]) do |rss|
+      feed_data = RSS::Parser.parse(rss)
 
-    redirect_to feed_path(@feed)
+      articles = feed_data.items.map { |item|
+        Article.new({
+          title: item.title,
+          description: item.description,
+          link: item.link,
+          author: item.author,
+          pub_date: item.pubDate,
+          guid: item.guid
+        })
+      }
+
+      @new_feed = Feed.new({
+        title: feed_data.channel.title,
+        description: feed_data.channel.description,
+        articles: articles
+      })
+
+      @new_feed.save
+    end
+
+    redirect_to feed_path(@new_feed)
   end
 
   #takes the user's submited url and parses the rss feed there
