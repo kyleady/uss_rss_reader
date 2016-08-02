@@ -30,13 +30,13 @@ class FeedsController < ApplicationController
         })
       }
 
-      @new_feed = Feed.new({
+      @feed = Feed.new({
         title: feed_data.channel.title,
         description: feed_data.channel.description,
         articles: articles
       })
 
-      @new_feed.save
+      @feed.save
     end
 
     redirect_to feed_path(@new_feed)
