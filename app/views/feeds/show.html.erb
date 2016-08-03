@@ -4,7 +4,7 @@
 
 <% @feed.articles.each do |article| %>
   <ul>
-    <p><%= article.title %></p>
+    <p><%= link_to article.title, feed_article_path(@feed,article) %></p>
   </ul>
 <% end %>
 

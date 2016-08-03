@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   #get 'feeds/new'
   #parsing the feed will also save the url, thus it is a post
   #post 'feeds/parse_rss'
-  resources :feeds
+  resources :feeds do
+    resources :articles
+  end
+
 
   #title page
   get 'welcome/index'
