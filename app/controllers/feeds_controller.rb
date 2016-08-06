@@ -16,30 +16,42 @@ class FeedsController < ApplicationController
   end
 
   def create
-    open(params[:feed][:url]) do |rss|
-      feed_data = RSS::Parser.parse(rss)
+    url = params[:feed][:url]
+    if url =~ /\A#{URI::regexp(['http', 'https'])}\z/
+      open(params[:feed][:url]) do |rss|
+        feed_data = RSS::Parser.parse(rss)
 
-      articles = feed_data.items.map { |item|
-        Article.new({
-          title: item.title,
-          description: item.description,
-          link: item.link,
-          author: item.author,
-          pub_date: item.pubDate,
-          guid: item.guid
+        articles = feed_data.items.map { |item|
+          Article.new({
+            title: item.title,
+            description: item.description,
+            link: item.link,
+            author: item.author,
+            pub_date: item.pubDate,
+            guid: item.guid
+          })
+        }
+
+        @feed = Feed.new({
+          title: feed_data.channel.title,
+          description: feed_data.channel.description,
+          articles: articles
         })
-      }
 
-      @feed = Feed.new({
-        title: feed_data.channel.title,
-        description: feed_data.channel.description,
-        articles: articles
-      })
-
-      @feed.save
+      end
+      if @feed.save
+        redirect_to feed_path(@feed)
+      else
+        redirect_to new_feed_path(:error => "URL already exists")
+      end
+    else
+      redirect_to new_feed_path(:error => "Invalid URL")
     end
+  end
 
-    redirect_to feed_path(@feed)
+  def destroy
+    @feed = Feed.find(params[:id]).destroy
+    redirect_to feeds_path
   end
 
   #takes the user's submited url and parses the rss feed there

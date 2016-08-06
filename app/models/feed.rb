@@ -1,5 +1,7 @@
 class Feed < ApplicationRecord
-  has_many :articles
+  ActiveRecord::Validations
+  has_many :articles, dependent: :destroy
+  validates_uniqueness_of :url
 
   def update
   end
@@ -7,4 +9,3 @@ class Feed < ApplicationRecord
   def show
   end
 end
-
