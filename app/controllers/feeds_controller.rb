@@ -33,6 +33,7 @@ class FeedsController < ApplicationController
         }
 
         @feed = Feed.new({
+          url: params[:feed][:url],
           title: feed_data.channel.title,
           description: feed_data.channel.description,
           articles: articles
