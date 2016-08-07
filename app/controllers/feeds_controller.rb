@@ -4,6 +4,9 @@ require 'open-uri'
 class FeedsController < ApplicationController
   def index
     @feeds = Feed.all
+    @feeds.each do |feed|
+      feed.update
+    end
   end
 
   def show
