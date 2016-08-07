@@ -1,0 +1,23 @@
+LOG:  database system was shut down at 2016-07-11 19:48:58 PDT
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  database "thampton" does not exist
+FATAL:  database "root" does not exist
+FATAL:  role "root" does not exist
+FATAL:  role "root" does not exist
+FATAL:  database "thampton" does not exist
+FATAL:  database "thampton" does not exist
+ERROR:  syntax error at or near "'admin'" at character 13
+STATEMENT:  create user 'admin'@'localhost';
+ERROR:  syntax error at or near "*" at character 25
+STATEMENT:  grant all privileges on *.* to admin;
+ERROR:  syntax error at or near "row" at character 8
+STATEMENT:  delete row admin;
+FATAL:  database "uss_rss_reader_development" does not exist
+FATAL:  database "uss_rss_reader_development" does not exist
+FATAL:  database "uss_rss_reader_development" does not exist
+FATAL:  database "uss_rss_reader_development" does not exist
+FATAL:  database "uss_rss_reader_development" does not exist
+FATAL:  database "uss_rss_reader_development" does not exist
+LOG:  stats_timestamp 2016-07-19 12:55:19.560666-07 is later than collector's time 2016-07-19 12:55:19.557947-07 for database 0

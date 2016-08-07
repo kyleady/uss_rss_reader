@@ -1,2 +1,23 @@
+<%#Header of the page%>
 <h1>Feeds#new</h1>
-<p>Find me in app/views/feeds/new.html.erb</p>
+
+<% if params[:error] %>
+<p><%= params[:error] %></p>
+<% end %>
+
+<%= form_for(@feed) do |f| %>
+  <ul>
+  <% @feed.errors.full_messages.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+  </ul>
+  <p>
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<%= link_to "<< Back to Feeds List", feeds_path %>
