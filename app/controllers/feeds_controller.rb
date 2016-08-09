@@ -4,14 +4,10 @@ require 'open-uri'
 class FeedsController < ApplicationController
   def index
     @feeds = Feed.all
-    @feeds.each do |feed|
-      feed.update
-    end
   end
 
   def show
     @feed = Feed.find(params[:id])
-    @feed.update
     @feed.show
   end
 
@@ -22,29 +18,11 @@ class FeedsController < ApplicationController
   def create
     url = params[:feed][:url]
     if url =~ /\A#{URI::regexp(['http', 'https'])}\z/
-      open(params[:feed][:url]) do |rss|
-        feed_data = RSS::Parser.parse(rss)
-
-        articles = feed_data.items.map { |item|
-          Article.new({
-            title: item.title,
-            description: item.description,
-            link: item.link,
-            author: item.author,
-            pub_date: item.pubDate,
-            guid: item.guid
-          })
-        }
-
-        @feed = Feed.new({
-          url: params[:feed][:url],
-          title: feed_data.channel.title,
-          description: feed_data.channel.description,
-          articles: articles
-        })
-
-      end
+      @feed = Feed.new({
+        url: params[:feed][:url]
+      })
       if @feed.save
+        FeedsUpdateJob.perform_async({})
         redirect_to feed_path(@feed)
       else
         redirect_to new_feed_path(:error => "URL already exists")
