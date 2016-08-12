@@ -1,6 +1,10 @@
 require 'rss'
 require 'open-uri'
 
+# The controller file for handling incoming feed data.
+#
+# @author [ Tyler Hampton, Kyle Ady ]
+# @since 0.0.1
 class FeedsController < ApplicationController
   def index
     @feeds = Feed.all
@@ -17,18 +21,15 @@ class FeedsController < ApplicationController
 
   def create
     url = params[:feed][:url]
-    if url =~ /\A#{URI::regexp(['http', 'https'])}\z/
-      @feed = Feed.new({
-        url: params[:feed][:url]
-      })
-      if @feed.save
-        FeedsUpdateJob.perform_async({})
-        redirect_to feed_path(@feed)
-      else
-        redirect_to new_feed_path(:error => "URL already exists")
-      end
+    validate_if_url url
+
+    @feed = Feed.new(url: url)
+
+    if @feed.save
+      FeedsUpdateJob.perform_async({})
+      redirect_to feed_path(@feed)
     else
-      redirect_to new_feed_path(:error => "Invalid URL")
+      redirect_to new_feed_path(error: 'URL already exists')
     end
   end
 
@@ -37,13 +38,17 @@ class FeedsController < ApplicationController
     redirect_to feeds_path
   end
 
-  #takes the user's submited url and parses the rss feed there
   def parse_rss
-    #creates a new Feed model, within the initialization the rss feed is pulled apart and saved
     feed = Feed.new(params[:q])
-    #put the feed to the terminal to ensure everything is working correctly
     feed.show
-    #let the user return to adding more feeds
-    render :action => "new"
+
+    render action: 'new'
+  end
+
+  private
+
+  def validate_if_url(url)
+    return if url =~ /\A#{URI.regexp(%w(http https))}\z/
+    redirect_to new_feed_path(error: 'Invalid URL')
   end
 end
