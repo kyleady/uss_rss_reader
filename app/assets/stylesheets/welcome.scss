@@ -1,3 +1,17 @@
 // Place all the styles related to the Welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+html, body, div {
+    height: 100%;
+}
+div {
+    float: left;
+}
+.feeds {
+    width: 30%;
+    background-color: black;
+}
+.articles {
+    width: 70%;
+    background-color: grey;
+}
