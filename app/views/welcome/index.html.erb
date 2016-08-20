@@ -1,8 +1,29 @@
 <div class = "feeds">
-  <p>1 blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah</p>
-  <p>2</p>
-  <p>3</p>
-  <p>4</p>
-  <p>5</p>
+  <span style = "float: right">
+    <%= "kurionta v"%>
+
+  </span>
+  <hr>
+  <dl>
+    <% @feeds.each do |feed| %>
+      <dt>
+        <%= link_to feed.title, feed_path(feed) %>
+        <span style = "float:right;">
+          <%= "(" %>
+          <%= link_to "x", feed_path(feed), method: :delete %>
+          <%= ")" %>
+        </span>
+      </dt>
+    <% end %>
+  </dl>
 </div>
-<div class = "articles"></div>
+
+<div class = "articles">
+  <h1 style = "text-align: center;"><%= "Latest" %></h1>
+  <hr>
+  <% @articles.each do |article| %>
+    <h3><%= article.title %></h3>
+    <p><%= article.description.html_safe %></p>
+    <hr>
+  <% end %>
+</div>

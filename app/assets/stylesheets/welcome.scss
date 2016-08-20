@@ -3,15 +3,23 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 html, body, div {
     height: 100%;
+    max-height: 100%;
 }
 div {
     float: left;
+    overflow:auto;
+    padding: 2%;
 }
 .feeds {
     width: 30%;
     background-color: black;
+    text-align: left;
+    color: white;
+    a {
+      color: white;
+    }
 }
 .articles {
     width: 70%;
-    background-color: grey;
+    background-color: white;
 }
