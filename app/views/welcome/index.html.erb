@@ -1,9 +1,4 @@
-<div class = "feeds">
-  <span style = "float: right">
-    <%= "kurionta v"%>
-
-  </span>
-  <hr>
+<% content_for :feeds do %>
   <dl>
     <% @feeds.each do |feed| %>
       <dt>
@@ -16,14 +11,12 @@
       </dt>
     <% end %>
   </dl>
-</div>
+<% end %>
 
-<div class = "articles">
-  <h1 style = "text-align: center;"><%= "Latest" %></h1>
+<h1 style = "text-align: center;"><%= "Latest" %></h1>
+<hr>
+<% @articles.each do |article| %>
+  <h3><%= article.title %></h3>
+  <p><%= article.description.html_safe %></p>
   <hr>
-  <% @articles.each do |article| %>
-    <h3><%= article.title %></h3>
-    <p><%= article.description.html_safe %></p>
-    <hr>
-  <% end %>
-</div>
+<% end %>

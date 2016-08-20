@@ -9,6 +9,16 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class = "feeds">
+      <span style = "float: right">
+        <%= "kurionta v"%>
+      </span>
+      <hr>
+      <%= yield :feeds%>
+    </div>
+
+    <div class = "articles">
+      <%= yield %>
+    </div>
   </body>
 </html>
