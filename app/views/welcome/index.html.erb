@@ -1,17 +1,4 @@
-<% content_for :feeds do %>
-  <dl>
-    <% @feeds.each do |feed| %>
-      <dt>
-        <%= link_to feed.title, feed_path(feed) %>
-        <span style = "float:right;">
-          <%= "(" %>
-          <%= link_to "x", feed_path(feed), method: :delete %>
-          <%= ")" %>
-        </span>
-      </dt>
-    <% end %>
-  </dl>
-<% end %>
+
 
 <h1 style = "text-align: center;"><%= "Latest" %></h1>
 <hr>
