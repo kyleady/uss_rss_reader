@@ -13,14 +13,10 @@ class Feed < ApplicationRecord
     open(url) do |rss|
       feed_data = RSS::Parser.parse(rss)
 
-
-
       update_attributes(
         title: feed_data.channel.title,
         description: feed_data.channel.description
       )
-
-      puts "\n\n================================\nUpdating " + title + "\n================================\n\n"
 
       add_articles(feed_data.items)
     end
@@ -31,24 +27,26 @@ class Feed < ApplicationRecord
 
   private
 
-  def add_articles(newArticles)
-    newArticles.each do |newArticle|
-      duplicate = articles.find do |oldArticle|
-        oldArticle.link == newArticle.link
+  def add_articles(new_articles)
+    new_articles.each do |new_article|
+      duplicate = articles.find do |old_article|
+        old_article.link == new_article.link
       end
 
-      return unless duplicate.nil?
-
-      articles.push(
-        Article.new(
-          title:       newArticle.title,
-          description: newArticle.description,
-          link:        newArticle.link,
-          author:      newArticle.author,
-          pub_date:    newArticle.pubDate,
-          guid:        newArticle.guid
-        )
-      )
+      add_article(new_article) if duplicate.nil?
     end
+  end
+
+  def add_article(new_article)
+    articles.push(
+      Article.new(
+        title:       new_article.title,
+        description: new_article.description,
+        link:        new_article.link,
+        author:      new_article.author,
+        pub_date:    new_article.pubDate,
+        guid:        new_article.guid
+      )
+    )
   end
 end
