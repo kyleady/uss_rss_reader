@@ -1,10 +1,13 @@
 require 'rss'
 require 'open-uri'
 
+# Model for feeds.
+#
+# @author [ Kyle Ady, Tyler Hampton ]
+# @since 0.0.1
 class Feed < ApplicationRecord
-  ActiveRecord::Validations
   has_many :articles, dependent: :destroy
-  validates_uniqueness_of :url
+  validates :url, uniqueness: :url
 
   def update
     open(url) do |rss|

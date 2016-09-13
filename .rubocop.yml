@@ -1,0 +1,25 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'db/**/*'
+    - 'Gemfile'
+    - 'Gemfile.lock'
+    - 'scratch/*'
+    - 'config/initializers/*'
+  TargetRubyVersion: 2.3
+
+Rails:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Encoding:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 100
+
+Style/SpaceInsideBrackets:
+  Enabled: false
