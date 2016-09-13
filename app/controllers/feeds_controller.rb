@@ -25,7 +25,7 @@ class FeedsController < ApplicationController
     @feed = Feed.new(url: url)
 
     if @feed.save
-      FeedsUpdateJob.perform_async({})
+      FeedsUpdateJob.new.perform(id: @feed.id)
       redirect_to feed_path(@feed)
     else
       redirect_to new_feed_path(error: 'URL already exists')

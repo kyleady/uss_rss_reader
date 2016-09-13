@@ -14,7 +14,7 @@ module UssRssReader
     config.active_job.queue_adapter = :sucker_punch
 
     config.after_initialize do
-      FeedsUpdateJob.perform_async(continuous: true)
+      FeedsUpdateJob.perform_async(continuous: true, all: true)
     end
   end
 end

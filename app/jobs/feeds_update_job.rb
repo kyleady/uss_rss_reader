@@ -6,10 +6,13 @@ class FeedsUpdateJob
   include SuckerPunch::Job
 
   def perform(args)
-    @feeds = Feed.all
+    if args[:all]
+      @feeds = Feed.all
+      @feeds.each { |feed| FeedsUpdateJob.perform_async(id: feed.id) }
+    elsif args[:id]
+      Feed.find(args[:id]).update
+    end
 
-    @feeds.each(&:update)
-
-    FeedsUpdateJob.perform_in(300, continuous: true) if args[:continuous]
+    FeedsUpdateJob.perform_in(300, args) if args[:continuous]
   end
 end
