@@ -2,10 +2,15 @@ default: &default
   adapter: postgresql
   pool: 5
   timeout: 5000
+  username: postgres
+  password: password
+  port: 5433
+  host: localhost
 
 development:
   <<: *default
   database: uss_rss_reader_development
-  username: postgres
-  password: PASSWORD
-  port: 5432
+
+test:
+  <<: *default
+  database: uss_rss_reader_test
