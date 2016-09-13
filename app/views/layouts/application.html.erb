@@ -9,6 +9,39 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class = "feeds">
+      <%= link_to "Home", "/" %>
+      <span style = "float: right">
+        <%= "kurionta v"%>
+      </span>
+      <hr>
+      <% @feeds.each do |feed| %>
+        <p>
+          <%= link_to feed.title, feed_path(feed) %>
+          <span style = "float:right;">
+            <%= "(" %>
+            <%= link_to "x", feed_path(feed), method: :delete %>
+            <%= ")" %>
+          </span>
+        </p>
+      <% end %>
+      <hr>
+      <%= form_for(@newfeed, :html => {:style => 'color: black; width: 100%' } ) do |f| %>
+        <ul>
+        <% @newfeed.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+        </ul>
+        <p>
+          <%= f.text_field( :url) %>
+          <%= f.submit "+" %>
+        </p>
+      <% end %>
+
+    </div>
+
+    <div class = "articles">
+      <%= yield %>
+    </div>
   </body>
 </html>

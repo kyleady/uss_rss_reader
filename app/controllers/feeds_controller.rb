@@ -7,7 +7,6 @@ require 'open-uri'
 # @since 0.0.1
 class FeedsController < ApplicationController
   def index
-    @feeds = Feed.all
   end
 
   def show
