@@ -12,7 +12,7 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 #Use therubyracer for JavaScript interpretor
-gem "therubyracer" 
+gem "therubyracer"
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -31,6 +31,9 @@ gem 'jbuilder', '~> 2.5'
 
 # Use sucker_punch for background jobs
 gem 'sucker_punch', '~> 2.0'
+
+#handles password encryption
+gem 'bcrypt'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

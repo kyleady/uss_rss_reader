@@ -12,7 +12,13 @@
     <div class = "feeds">
       <%= link_to "Home", "/" %>
       <span style = "float: right">
-        <%= "kurionta v"%>
+        <% if cookies[:user].nil? %>
+          <%= link_to "Sign Up", controller: "users", action: "new", class: "new_user" %>
+          <%= " or "%>
+          <%= link_to "Sign In", controller: "users", action: "signin" %>
+        <% else %>
+          <%= link_to @user.email, controller: "users", action: "show" %>
+        <% end %>
       </span>
       <hr>
       <% @feeds.each do |feed| %>
