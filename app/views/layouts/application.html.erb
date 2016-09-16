@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class = "main">
   <head>
     <title>UssRssReader</title>
     <%= csrf_meta_tags %>
@@ -8,14 +8,14 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <div class = "feeds">
+  <body class = "main">
+    <div class = "main feeds section">
       <%= link_to "Home", "/" %>
       <span style = "float: right">
         <% if cookies[:user].nil? %>
-          <%= link_to "Sign Up", controller: "users", action: "new", class: "new_user" %>
+          <%= link_to "Sign Up",   controller: "users", action: "new"%>
           <%= " or "%>
-          <%= link_to "Sign In", controller: "users", action: "signin" %>
+          <%= link_to "Sign In",   controller: "users", action: "sign_in" %>
         <% else %>
           <%= link_to @user.email, controller: "users", action: "show" %>
         <% end %>
@@ -46,7 +46,7 @@
 
     </div>
 
-    <div class = "articles">
+    <div class = "main articles section">
       <%= yield %>
     </div>
   </body>

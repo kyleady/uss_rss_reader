@@ -1,27 +1,26 @@
 <%#Header of the page%>
-<% if params[:error] %>
-<p><%= params[:error] %></p>
+<% @user.errors.full_messages.each do |error| %>
+  <p><%= error %></p>
 <% end %>
 
-<%= form_for(@user, url: user_path) do |f| %>
-  <ul>
-  <% @user.errors.full_messages.each do |error| %>
-    <li><%= error %></li>
-  <% end %>
-  </ul>
-  <p>
+<%= form_for @user, url: user_path do |f| %>
+  <div>
     <%= f.label :email %><br />
     <%= f.text_field :email %>
-  </p>
-  <p>
+  </div>
+  <br>
+  <div>
     <%= f.label :password %><br />
     <%= f.password_field :password %>
-  </p>
-  <p>
+  </div>
+  <br>
+  <div>
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation %>
-  </p>
-  <p>
+  </div>
+  <br>
+  <div>
     <%= f.submit %>
-  </p>
+  </div>
+
 <% end %>

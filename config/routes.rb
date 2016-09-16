@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resource :user do
     collection do
       get 'logout'
-      get 'signin'
+      get 'sign_in'
       post 'begin_session'
     end
   end

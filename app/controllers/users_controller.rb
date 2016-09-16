@@ -8,7 +8,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(cookies.permanent[:user])
+    if cookies.permanent[:user]
+      @user = User.find(cookies.permanent[:user])
+    else
+      redirect_to "/user/new"
+    end
   end
 
   def new
@@ -20,11 +24,11 @@ class UsersController < ApplicationController
 
     @user = User.new(params.require(:user).permit(:email, :password, :password_confirmation))
 
-    if @user.save
+    if @user.valid? && @user.save
       cookies.permanent[:user] = @user.id
       redirect_to "/"
     else
-      redirect_to controller: "users", action: "new" , error: "The email address #{email} has already been taken"
+      render "new"
     end
   end
 
@@ -39,18 +43,18 @@ class UsersController < ApplicationController
     redirect_to "/"
   end
 
-  def signin
+  def sign_in
 
   end
 
   def begin_session
-    user = User.find_by_email(params[:email])
-    if user.authenticate(params[:password])
-      cookies.permanent[:user] = user.id
+    find_user = User.find_by_email(params[:email])
+    if find_user && find_user.authenticate(params[:password])
+      cookies.permanent[:user] = find_user.id
       redirect_to "/", notice: "Logged in!"
     else
-      flash.now.alert = "Invalid email or password"
-      render "signin"
+      flash.alert = "Invalid email or password"
+      redirect_to "/user/sign_in"
     end
   end
 end

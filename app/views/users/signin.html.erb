@@ -1,4 +1,9 @@
 <%= form_tag controller: "users", action: 'begin_session' do %>
+  <ul>
+  <% if flash.alert %>
+    <li><%= flash.alert %></li>
+  <% end %>
+  </ul>
   <p>
     <%= label_tag :email %><br />
     <%= text_field :email, params[:email] %>

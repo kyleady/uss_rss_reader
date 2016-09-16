@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     if cookies.permanent[:user]
-      @user ||= User.find(cookies.permanent[:user])
+      @user = User.find(cookies.permanent[:user])
     end
   end
 end
