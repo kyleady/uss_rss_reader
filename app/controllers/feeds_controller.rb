@@ -18,16 +18,21 @@ class FeedsController < ApplicationController
   end
 
   def create
+    if @user == nil
+      redirect_to '/user/new'
+      return
+    end
+
     url = params[:feed][:url]
     validate_if_url url
 
     @feed = Feed.new(url: url)
-
-    if @feed.save
+    @user.feeds << @feed
+    if @feed.valid?
       FeedsUpdateJob.new.perform(id: @feed.id)
       redirect_to feed_path(@feed)
     else
-      redirect_to new_feed_path(error: 'URL already exists')
+      render "new"
     end
   end
 

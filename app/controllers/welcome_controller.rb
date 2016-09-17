@@ -3,6 +3,9 @@
 # @since 0.0.1
 class WelcomeController < ApplicationController
   def index
-    @articles = Article.all
+    @articles = [];
+    if @feeds
+      @feeds.each { |feed| @articles.concat(feed.articles)}
+    end
   end
 end
