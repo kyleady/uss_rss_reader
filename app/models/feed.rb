@@ -6,6 +6,7 @@ require 'open-uri'
 # @author [ Kyle Ady, Tyler Hampton ]
 # @since 0.0.1
 class Feed < ApplicationRecord
+  belongs_to :user
   has_many :articles, dependent: :destroy
   validates :url, uniqueness: :url
 
@@ -84,7 +85,9 @@ class Feed < ApplicationRecord
   def careful_get(object, method, second_method = nil)
     if object.respond_to?(method)
       second_object = object.send(method.to_sym)
-      if second_method
+      if second_method.nil?
+        second_object
+      else
         second_object.respond_to?(second_method) ? second_object.send(second_method) : ''
       end
     else

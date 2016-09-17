@@ -1,10 +1,5 @@
 <%#Header of the page%>
 <h1>Feeds#new</h1>
-
-<% if params[:error] %>
-<p><%= params[:error] %></p>
-<% end %>
-
 <%= form_for(@feed) do |f| %>
   <ul>
   <% @feed.errors.full_messages.each do |error| %>

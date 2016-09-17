@@ -1,0 +1,18 @@
+<%= form_tag controller: "users", action: 'begin_session' do %>
+  <ul>
+  <% if flash.alert %>
+    <li><%= flash.alert %></li>
+  <% end %>
+  </ul>
+  <p>
+    <%= label_tag :email %><br />
+    <%= text_field :email, params[:email] %>
+  </p>
+  <p>
+    <%= label_tag :password %><br />
+    <%= password_field_tag :password %>
+  </p>
+  <p>
+    <%= submit_tag 'Log In' %>
+  </p>
+<% end %>

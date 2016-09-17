@@ -40,6 +40,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.0.0)
+    bcrypt (3.1.11)
+    bcrypt (3.1.11-x64-mingw32)
     builder (3.2.2)
     byebug (9.0.5)
     coffee-rails (4.2.1)
@@ -141,6 +143,12 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    shoulda (3.5.0)
+      shoulda-context (~> 1.0, >= 1.0.1)
+      shoulda-matchers (>= 1.4.1, < 3.0)
+    shoulda-context (1.2.1)
+    shoulda-matchers (2.8.0)
+      activesupport (>= 3.0.0)
     sprockets (3.6.3)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -178,6 +186,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  bcrypt
   bundler (>= 1.8.4)
   byebug
   coffee-rails (~> 4.2)
@@ -189,6 +198,7 @@ DEPENDENCIES
   rails-assets-bootstrap!
   rspec-rails (~> 3.5)
   sass-rails (~> 5.0)
+  shoulda
   sucker_punch (~> 2.0)
   therubyracer
   turbolinks (~> 5)

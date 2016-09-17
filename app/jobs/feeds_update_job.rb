@@ -1,3 +1,5 @@
+require 'article.rb'
+require 'user.rb'
 # The job file that schedules the ingesting of RSS feeds.
 #
 # @author [ Kyle Ady, Tyler Hampton ]

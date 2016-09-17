@@ -1,0 +1,26 @@
+<%#Header of the page%>
+<% @user.errors.full_messages.each do |error| %>
+  <p><%= error %></p>
+<% end %>
+
+<%= form_for @user, url: user_path do |f| %>
+  <div>
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <br>
+  <div>
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+  <br>
+  <div>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <br>
+  <div>
+    <%= f.submit %>
+  </div>
+
+<% end %>
