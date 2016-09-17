@@ -6,6 +6,7 @@ require 'open-uri'
 # @author [ Kyle Ady, Tyler Hampton ]
 # @since 0.0.1
 class Feed < ApplicationRecord
+  belongs_to :user
   has_many :articles, dependent: :destroy
   validates :url, uniqueness: :url
 

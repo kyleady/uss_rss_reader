@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :feeds, dependent: :destroy
   has_secure_password
   validates_presence_of :password, on: :create
   validates :email, uniqueness: :email
