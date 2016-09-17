@@ -11,6 +11,10 @@ class FeedsController < ApplicationController
 
   def show
     @feed = Feed.find(params[:id])
+
+    if "#{@feed.user_id}" != cookies.permanent[:user]
+      Feed.find(0)
+    end
   end
 
   def new
