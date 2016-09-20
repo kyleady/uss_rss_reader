@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160916225930) do
+ActiveRecord::Schema.define(version: 20160920184125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,12 +18,13 @@ ActiveRecord::Schema.define(version: 20160916225930) do
   create_table "articles", force: :cascade do |t|
     t.string   "title"
     t.integer  "feed_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "description"
     t.string   "link"
     t.string   "author"
     t.string   "pub_date"
+    t.boolean  "viewed",      default: false, null: false
     t.index ["feed_id"], name: "index_articles_on_feed_id", using: :btree
   end
 
@@ -34,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160916225930) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "user_id"
+    t.index ["user_id"], name: "index_feeds_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -44,4 +46,5 @@ ActiveRecord::Schema.define(version: 20160916225930) do
   end
 
   add_foreign_key "articles", "feeds"
+  add_foreign_key "feeds", "users"
 end

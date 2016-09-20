@@ -4,6 +4,15 @@
 class Article < ApplicationRecord
   belongs_to :feed
   after_create :clean
+
+  def read(setViewed = true)
+    update_attribute(:viewed,setViewed)
+  end
+
+  def viewed?
+    viewed == true
+  end
+
   private
 
   # It is possible for nil values to pop up in Articles, thus it is important to

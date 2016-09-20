@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :feeds do
-    resources :articles
+    resources :articles do
+      member do
+        get 'toggle_viewed'
+      end
+    end
   end
 
   resource :user do
