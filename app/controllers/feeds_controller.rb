@@ -10,11 +10,7 @@ class FeedsController < ApplicationController
   end
 
   def show
-    @feed = Feed.find(params[:id])
-
-    if "#{@feed.user_id}" != cookies.permanent[:user]
-      Feed.find(0)
-    end
+    define_feed
   end
 
   def new
@@ -22,33 +18,18 @@ class FeedsController < ApplicationController
   end
 
   def create
-    if @user == nil
-      redirect_to '/user/new'
-      return
-    end
-
-    url = params[:feed][:url]
-    validate_if_url url
-
-    @feed = Feed.new(url: url)
-    @user.feeds << @feed
-    if @feed.valid?
-      FeedsUpdateJob.new.perform(id: @feed.id)
-      redirect_to feed_path(@feed)
-    else
-      render "new"
-    end
+    @user.nil? ? redirect_to('user/new') : create_feed
   end
 
   def destroy
-    @feed = Feed.find(params[:id]).destroy
+    define_feed
+    @feed.destroy
     redirect_to feeds_path
   end
 
   def parse_rss
     feed = Feed.new(params[:q])
     feed.show
-
     render action: 'new'
   end
 
@@ -57,5 +38,21 @@ class FeedsController < ApplicationController
   def validate_if_url(url)
     return if url =~ /\A#{URI.regexp(%w(http https))}\z/
     redirect_to new_feed_path(error: 'Invalid URL')
+  end
+
+  def define_feed
+    @feed = Feed.find(params[:id])
+    Feed.find(0) if @feed.user_id.to_s != cookies.permanent[:user]
+  end
+
+  def create_feed
+    @feed = Feed.new(url: params[:feed][:url])
+    @user.feeds << @feed
+    if @feed.valid?
+      FeedsUpdateJob.new.perform(id: @feed.id)
+      redirect_to feed_path(@feed)
+    else
+      render :new
+    end
   end
 end
