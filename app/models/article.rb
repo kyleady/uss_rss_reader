@@ -14,6 +14,14 @@ class Article < ApplicationRecord
     viewed == true
   end
 
+  def self.get(user_id, args)
+    feed = Feed.get user_id, id: args[:feed_id]
+    return nil if feed.nil?
+    Article.find args[:id]
+  rescue
+    nil
+  end
+
   private
 
   def clean
