@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Feed, type: :model do
-  context "should belong to a user" do
+  context 'should belong to a user' do
     it { should belong_to :user }
   end
   it { should have_many :articles }
@@ -23,5 +23,4 @@ RSpec.describe Feed, type: :model do
       expect(@feed.update).to eq(true)
     end
   end
-
 end

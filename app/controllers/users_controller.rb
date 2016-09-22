@@ -4,14 +4,13 @@
 # @since 0.0.1
 class UsersController < ApplicationController
   def index
-
   end
 
   def show
     if cookies.permanent[:user]
       @user = User.find(cookies.permanent[:user])
     else
-      redirect_to "/user/new"
+      redirect_to :new
     end
   end
 
@@ -20,41 +19,37 @@ class UsersController < ApplicationController
   end
 
   def create
-    email = params[:user][:email]
-
     @user = User.new(params.require(:user).permit(:email, :password, :password_confirmation))
-
     if @user.valid? && @user.save
       cookies.permanent[:user] = @user.id
-      redirect_to "/"
+      redirect_to '/'
     else
-      render "new"
+      render :new
     end
   end
 
   def destroy
     @user = User.find(cookies.permanent[:user]).destroy
     cookies.delete :user
-    redirect_to "/"
+    redirect_to '/'
   end
 
   def logout
     cookies.delete :user
-    redirect_to "/"
+    redirect_to '/'
   end
 
   def sign_in
-
   end
 
   def begin_session
     find_user = User.find_by_email(params[:email])
     if find_user && find_user.authenticate(params[:password])
       cookies.permanent[:user] = find_user.id
-      redirect_to "/", notice: "Logged in!"
+      redirect_to '/', notice: 'Logged in!'
     else
-      flash.alert = "Invalid email or password"
-      redirect_to "/user/sign_in"
+      flash.alert = 'Invalid email or password'
+      redirect_to :sign_in
     end
   end
 end

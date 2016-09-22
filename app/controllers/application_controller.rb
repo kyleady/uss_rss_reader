@@ -7,10 +7,8 @@ class ApplicationController < ActionController::Base
   before_action :set_sidebar_variables
 
   def set_sidebar_variables
-    if cookies.permanent[:user]
-      @user = User.find(cookies.permanent[:user])
-    end
-    if @user then @feeds = @user.feeds else @feeds = [] end
+    @user = User.find(cookies.permanent[:user]) if cookies.permanent[:user]
+    @feeds = @user.nil? ? @feeds = [] : @user.feeds
     @newfeed ||= Feed.new
   end
 end
