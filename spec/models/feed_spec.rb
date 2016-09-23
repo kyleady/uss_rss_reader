@@ -27,29 +27,25 @@ RSpec.describe Feed, type: :model do
   end
 
   context '.get' do
-    it 'with a nil user, returns nil' do
+    before :all do
       @user = User.new(email: 'fake user', password: 'password')
       @user.save
       @feed = Feed.new(url: 'fake feed')
       @user.feeds << @feed
+    end
+
+    it 'with a nil user, returns nil' do
       expect(Feed.get(nil, id: @feed.id)).to eq(nil)
-      @user.destroy
     end
     it 'with a non-matching user, returns nil' do
-      @user = User.new(email: 'fake user', password: 'password')
-      @user.save
-      @feed = Feed.new(url: 'fake feed')
-      @user.feeds << @feed
       wrong_id = @user.id+1
       expect(Feed.get(wrong_id, id: @feed.id)).to eq(nil)
-      @user.destroy
     end
     it 'with a matching user, returns the feed' do
-      @user = User.new(email: 'fake user', password: 'password')
-      @user.save
-      @feed = Feed.new(url: 'fake feed')
-      @user.feeds << @feed
       expect(Feed.get(@user.id.to_s, id: @feed.id.to_s)).to eq(@feed)
+    end
+
+    after :all do
       @user.destroy
     end
   end
