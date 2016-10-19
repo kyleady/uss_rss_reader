@@ -38,7 +38,7 @@ RSpec.describe Feed, type: :model do
       expect(Feed.get(nil, id: @feed.id)).to eq(nil)
     end
     it 'with a non-matching user, returns nil' do
-      wrong_id = @user.id+1
+      wrong_id = @user.id + 1
       expect(Feed.get(wrong_id, id: @feed.id)).to eq(nil)
     end
     it 'with a matching user, returns the feed' do
