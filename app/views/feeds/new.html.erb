@@ -5,6 +5,9 @@
   <% @feed.errors.full_messages.each do |error| %>
     <li><%= error %></li>
   <% end %>
+  <% if flash.alert %>
+    <li><%= flash.alert %></li>
+  <% end %>
   </ul>
   <p>
     <%= f.label :url %><br />

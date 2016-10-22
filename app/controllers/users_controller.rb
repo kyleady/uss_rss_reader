@@ -12,6 +12,8 @@ class UsersController < ApplicationController
     else
       redirect_to :new
     end
+  rescue
+    not_found
   end
 
   def new
@@ -32,6 +34,8 @@ class UsersController < ApplicationController
     @user = User.find(cookies.permanent[:user]).destroy
     cookies.delete :user
     redirect_to '/'
+  rescue
+    not_found
   end
 
   def logout
@@ -44,12 +48,23 @@ class UsersController < ApplicationController
 
   def begin_session
     find_user = User.find_by_email(params[:email])
-    if find_user && find_user.authenticate(params[:password])
-      cookies.permanent[:user] = find_user.id
+    store_user_id find_user
+  rescue
+    not_found
+  end
+
+  def store_user_id(user)
+    if user && user.authenticate(params[:password])
+      cookies.permanent[:user] = user.id
       redirect_to '/', notice: 'Logged in!'
     else
       flash.alert = 'Invalid email or password'
-      redirect_to :sign_in
+      render 'sign_in'
     end
+  end
+
+  def not_found
+    flash.alert = 'User not found'
+    redirect_to 'sign_in'
   end
 end

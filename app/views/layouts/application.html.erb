@@ -12,7 +12,7 @@
     <div class = "main feeds section">
       <%= link_to "Home", "/" %>
       <span style = "float: right">
-        <% if cookies[:user].nil? %>
+        <% if cookies[:user].nil? || @user.nil? %>
           <%= link_to "Sign Up",   controller: "users", action: "new"%>
           <%= " or "%>
           <%= link_to "Sign In",   controller: "users", action: "sign_in" %>

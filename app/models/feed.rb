@@ -8,9 +8,28 @@ require 'open-uri'
 class Feed < ApplicationRecord
   belongs_to :user
   has_many :articles, dependent: :destroy
-  validates :url, uniqueness: :url
+  validates :url, uniqueness: { scope: :user_id, message: 'Duplicate feed' }
 
   def update
+    update_valid_feed
+    true
+  rescue
+    false
+  end
+
+  def show
+  end
+
+  def self.get(user_id, args)
+    feed = Feed.find args[:id]
+    user_id == feed.user_id.to_s ? feed : nil
+  rescue
+    nil
+  end
+
+  private
+
+  def update_valid_feed
     open(url) do |rss|
       feed_data = RSS::Parser.parse(rss, false)
       case feed_data.feed_type
@@ -20,13 +39,7 @@ class Feed < ApplicationRecord
         parse_atom_feed(feed_data)
       end
     end
-    true
   end
-
-  def show
-  end
-
-  private
 
   def parse_rss_feed(feed_data)
     update_attributes(

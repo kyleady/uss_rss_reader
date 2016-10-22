@@ -35,6 +35,9 @@ gem 'sucker_punch', '~> 2.0'
 #handles password encryption
 gem 'bcrypt'
 
+#use coveralls to determine the extent of test coverage
+gem 'coveralls', require: false
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
