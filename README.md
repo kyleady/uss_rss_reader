@@ -1,5 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/kyleady/uss_rss_reader/badge.svg)](https://coveralls.io/github/kyleady/uss_rss_reader)
 [![Build Status](https://travis-ci.org/kyleady/uss_rss_reader.svg?branch=master)](https://travis-ci.org/kyleady/uss_rss_reader)
-!https://coveralls.io/repos/github/kyleady/uss_rss_reader/badge.svg(Coverage Status)!:https://coveralls.io/github/kyleady/uss_rss_reader
 
 # The USS RSS Reader!
 
