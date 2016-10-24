@@ -14,6 +14,10 @@ The U.S.S RSS Reader is an rss feed reader developed by @kyleady and @howdoicomp
 
 ## How to Use
 
-USS RSS Reader is pretty alpha quality at the moment so all we got is `/feeds/new` which will accept an RSS feed endpoint, store it and the last few articles returned from the parsed data to postgres, and then return you to a feed list.
+USS RSS Reader is in alpha at the moment. Click 'Sign Up' or go to `/user/new` to create a new account on your local database. Once you are signed in as a user, you may add feeds in the side bar or by going to `/feeds/new`. Doing so will accept an RSS feed endpoint, store it and the articles returned from the parsed data to postgres, and then return you to the current user's feed list.
+
+## Further Details
+
+For more detailed information, please see the Wiki.
 
 ---
