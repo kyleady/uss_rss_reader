@@ -58,13 +58,11 @@ class UsersController < ApplicationController
       cookies.permanent[:user] = user.id
       redirect_to '/', notice: 'Logged in!'
     else
-      flash.alert = 'Invalid email or password'
-      render 'sign_in'
+      not_found
     end
   end
 
   def not_found
-    flash.alert = 'User not found'
-    redirect_to 'sign_in'
+    redirect_to sign_in_user_path, alert: 'User not found'
   end
 end
