@@ -1,0 +1,10 @@
+<% if !article.viewed? %>
+  <h3>
+    <%= check_box_tag 'viewed', "/feeds/#{article.feed.id}/articles/#{article.id}", article.viewed?, class: "article-hasBeenRead", remote: true %>
+    <%= article.title %>
+  </h3>
+  <hr>
+  <p>
+    <%= article.description.html_safe %>
+  </p>
+<% end %>
