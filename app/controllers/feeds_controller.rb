@@ -12,6 +12,7 @@ class FeedsController < ApplicationController
   def show
     @feed = Feed.get cookies.permanent[:user], params
     not_found if @feed.nil?
+    @articles = @feed.articles
   end
 
   def new

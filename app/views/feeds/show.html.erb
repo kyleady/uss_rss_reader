@@ -1,14 +1,6 @@
 <h1><%= @feed.title %></h1>
 <p><%= @feed.url %></p>
 <p><%= @feed.description %></p>
-<div class='article-wrapper'>
-<% @feed.articles.each do |article| %>
-    <p>
-      <%= check_box_tag 'viewed', "/feeds/#{@feed.id}/articles/#{article.id}", article.viewed?, class: "article-hasBeenRead", remote: true %>
-
-      <%= link_to article.title, feed_article_path(@feed,article) %>
-    </p>
-<% end %>
-</div>
+<%= render @articles %>
 
 <%= link_to "<< Back to Feeds List", feeds_path %>

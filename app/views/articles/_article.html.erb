@@ -1,10 +1,15 @@
-<% if !article.viewed? %>
-  <h3>
-    <%= check_box_tag 'viewed', "/feeds/#{article.feed.id}/articles/#{article.id}", article.viewed?, class: "article-hasBeenRead", remote: true %>
+<h3>
+  <%= check_box_tag 'viewed', feed_article_path(article.feed,article), article.viewed?, class: "article-hasBeenRead", remote: true %>
+  <% if local_assigns[:full] %>
     <%= article.title %>
-  </h3>
-  <hr>
-  <p>
-    <%= article.description.html_safe %>
-  </p>
+  <% else %>
+    <%= link_to article.title, feed_article_path(article.feed,article) %>
+  <% end %>
+</h3>
+<hr>
+<% if local_assigns[:full] %>
+  <p><%= article.description.html_safe %></p>
+  <p><%= link_to article.link %></p>
+  <p><%= article.author %></p>
+  <p><%= article.pub_date %></p>
 <% end %>
