@@ -21,16 +21,7 @@
         <% end %>
       </span>
       <hr>
-      <% @feeds.each do |feed| %>
-        <p>
-          <%= link_to feed.title, feed_path(feed) %>
-          <span style = "float:right;">
-            <%= "(" %>
-            <%= link_to "x", feed_path(feed), method: :delete %>
-            <%= ")" %>
-          </span>
-        </p>
-      <% end %>
+      <%= render @feeds %>
       <hr>
       <%= form_for(@newfeed, :html => {:style => 'color: black; width: 100%' } ) do |f| %>
         <ul>
