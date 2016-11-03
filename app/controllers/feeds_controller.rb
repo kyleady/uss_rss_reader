@@ -37,7 +37,7 @@ class FeedsController < ApplicationController
     else
       @feed.destroy
       set_sidebar_variables
-      ActionCable.server.broadcast("feed_#{current_user.id}", full: true, display: render_to_string(@feeds))
+      ActionCable.server.broadcast("feed_#{current_user.id}", refresh_all: true, display: render_to_string(@feeds))
     end
   end
 
