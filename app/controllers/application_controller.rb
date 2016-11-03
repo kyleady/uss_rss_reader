@@ -11,12 +11,16 @@ class ApplicationController < ActionController::Base
     set_user_feeds
   end
 
+  def current_user
+    User.find(cookies.permanent[:user])
+  rescue
+    nil
+  end
+
   private
 
   def set_current_user
-    @user = User.find(cookies.permanent[:user]) if cookies.permanent[:user]
-  rescue
-    @user = nil
+    @user = current_user
   end
 
   def set_user_feeds

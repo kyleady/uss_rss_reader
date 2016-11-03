@@ -36,7 +36,8 @@ class FeedsController < ApplicationController
       not_found
     else
       @feed.destroy
-      redirect_to feeds_path
+      set_sidebar_variables
+      ActionCable.server.broadcast("feed_#{current_user.id}", full: true, display: render_to_string(@feeds))
     end
   end
 
@@ -52,7 +53,7 @@ class FeedsController < ApplicationController
 
   def update_feed
     if @feed.update
-      redirect_to feed_path(@feed)
+      ActionCable.server.broadcast("feed_#{current_user.id}", display: render_to_string(@feed))
     else
       @feed.destroy
       not_found
