@@ -1,3 +1,7 @@
 <h1 style = "text-align: center;"><%= "Latest" %></h1>
 <hr>
-<%= render @articles %>
+<div class=
+  <%="articles_unread"%>
+>
+  <%= render @articles, full: true %>
+</div>

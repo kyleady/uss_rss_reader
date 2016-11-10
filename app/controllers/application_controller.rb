@@ -17,6 +17,14 @@ class ApplicationController < ActionController::Base
     nil
   end
 
+  def unread_articles
+    articles = []
+    @feeds.each { |feed| articles.concat(feed.articles) } if @feeds
+    articles.select do |article|
+      !article.viewed?
+    end
+  end
+
   private
 
   def set_current_user

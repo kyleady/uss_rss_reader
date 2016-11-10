@@ -27,6 +27,7 @@ class FeedsController < ApplicationController
       @feed = Feed.new(url: params[:feed][:url])
       @user.feeds << @feed
       validate_feed
+      @feed.articles.each {|article| ActionCable.server.broadcast("article_#{current_user.id}", feed: @feed.id, unread: true, full_display: render_to_string(article, full: true), link_display: render_to_string(article))}
     end
   end
 
@@ -35,6 +36,7 @@ class FeedsController < ApplicationController
     if @feed.nil?
       not_found
     else
+      @feed.articles.each {|article| ActionCable.server.broadcast("article_#{current_user.id}", edit: true, article: article.id, full_display: "", link_display: "")}
       @feed.destroy
       set_sidebar_variables
       ActionCable.server.broadcast("feed_#{current_user.id}", refresh_all: true, display: render_to_string(@feeds))

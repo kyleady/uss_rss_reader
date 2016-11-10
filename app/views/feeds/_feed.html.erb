@@ -1,3 +1,13 @@
+<% if local_assigns[:update].nil? %>
+  <div class=
+  <% if local_assigns[:full] %>
+    <%="feed_link_#{feed.id}"%>
+  <% else %>
+    <%="feed_#{feed.id}" %>
+  <% end %>
+  >
+<% end %>
+
 <% if local_assigns[:full] %>
   <h1><%= feed.title %>
 <% else %>
@@ -10,11 +20,19 @@
   <%= ")" %>
 </span>
 
+<% if local_assigns[:update].nil? %>
+  </div>
+<% end %>
+
 <% if local_assigns[:full] %>
   </h1>
   <p><%= feed.url %></p>
   <p><%= feed.description %></p>
-  <%= render feed.articles %>
+  <div class=
+    <%="article_links_#{feed.id}"%>
+  >
+    <%= render feed.articles %>
+  </div>
 <% else %>
   </p>
 <% end %>
