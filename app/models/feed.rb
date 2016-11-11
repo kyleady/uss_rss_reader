@@ -13,7 +13,9 @@ class Feed < ApplicationRecord
   def update
     update_valid_feed
     true
-  rescue
+  rescue Exception => e
+    puts e.message
+    puts e.backtrace.inspect
     false
   end
 
@@ -42,19 +44,29 @@ class Feed < ApplicationRecord
   end
 
   def parse_rss_feed(feed_data)
+    oldtitle = title
     update_attributes(
       title:       careful_get(feed_data.channel, 'title'),
       description: careful_get(feed_data.channel, 'description')
     )
-    parse_rss_articles(feed_data.items)
+    if oldtitle == title
+      parse_rss_articles(feed_data.items)
+    else
+      FeedsUpdateJob.perform_async(id: id)
+    end
   end
 
   def parse_atom_feed(feed_data)
+    oldtitle = title
     update_attributes(
       title:       careful_get(feed_data, 'title', 'content'),
       description: careful_get(feed_data, 'subtitle', 'content')
     )
-    parse_atom_articles(feed_data.items)
+    if oldtitle == title
+      parse_atom_articles(feed_data.items)
+    else
+      FeedsUpdateJob.perform_async(id: id)
+    end
   end
 
   def parse_rss_articles(new_articles)

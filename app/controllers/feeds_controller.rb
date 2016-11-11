@@ -11,8 +11,11 @@ class FeedsController < ApplicationController
 
   def show
     @feed = Feed.get cookies.permanent[:user], params
-    not_found if @feed.nil?
-    @articles = @feed.articles
+    if @feed.nil?
+      not_found
+    else
+      @articles = @feed.articles
+    end
   end
 
   def new
@@ -27,7 +30,6 @@ class FeedsController < ApplicationController
       @feed = Feed.new(url: params[:feed][:url])
       @user.feeds << @feed
       validate_feed
-      @feed.articles.each {|article| ActionCable.server.broadcast("article_#{current_user.id}", feed: @feed.id, unread: true, full_display: render_to_string(article, full: true), link_display: render_to_string(article))}
     end
   end
 
