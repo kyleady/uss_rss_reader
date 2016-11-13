@@ -88,23 +88,27 @@ class Feed < ApplicationRecord
   end
 
   def parse_rss_article(new_article)
-    articles << Article.new(
+    article = Article.new(
       title:       careful_get(new_article, 'title'),
       description: careful_get(new_article, 'description'),
       link:        careful_get(new_article, 'link'),
       author:      careful_get(new_article, 'author'),
       pub_date:    careful_get(new_article, 'pubDate')
     )
+    articles << article
+    article.broadcast
   end
 
   def parse_atom_article(new_article)
-    articles << Article.new(
+    article = Article.new(
       title:       careful_get(new_article, 'title', 'content'),
       description: careful_get(new_article, 'summary', 'content'),
       link:        careful_get(new_article, 'link', 'href'),
       author:      careful_get(new_article, 'author', 'content'),
       pub_date:    careful_get(new_article, 'published', 'content')
     )
+    articles << article
+    article.broadcast
   end
 
   def careful_get(object, method, second_method = nil)
