@@ -15,7 +15,7 @@ RSpec.describe Article, type: :model do
 
   context '.get' do
     before :all do
-      @user = User.new(email: 'fake user', password: 'password')
+      @user = User.new(email: 'fakest user', password: 'password')
       @user.save
       @feed = Feed.new(url: 'fake feed')
       @user.feeds << @feed
