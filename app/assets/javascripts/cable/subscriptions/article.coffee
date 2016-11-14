@@ -1,6 +1,6 @@
 App.articleChannel = App.cable.subscriptions.create { channel: "ArticleChannel" },
   received: (data) ->
-    if data["edit"]
+    if data["article"]?
       $(".article_#{data["article"]}").html data["full_display"] if data["full_display"]?
       $(".article_link_#{data["article"]}").html data["link_display"] if data["link_display"]?
     else if data["feed"]?

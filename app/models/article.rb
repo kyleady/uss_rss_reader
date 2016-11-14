@@ -26,14 +26,19 @@ class Article < ApplicationRecord
     ApplicationController.render(self, locals: args)
   end
 
-  def broadcast
-    user_id = Feed.find(feed_id).user_id
+  def show(user_id)
     ActionCable.server.broadcast("article_#{user_id}",
-                                  feed: feed_id,
-                                  article: id,
-                                  unread: !viewed?,
-                                  full_display: render(full: true),
-                                  link_display: render(full: false))
+                                 feed: feed_id,
+                                 unread: !viewed?,
+                                 full_display: render(full: true),
+                                 link_display: render(full: false))
+  end
+
+  def hide(user_id)
+    ActionCable.server.broadcast("article_#{user_id}",
+                                 article: id,
+                                 full_display: '',
+                                 link_display: '')
   end
 
   private

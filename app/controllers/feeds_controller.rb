@@ -38,10 +38,9 @@ class FeedsController < ApplicationController
     if @feed.nil?
       not_found
     else
-      @feed.articles.each {|article| ActionCable.server.broadcast("article_#{current_user.id}", edit: true, article: article.id, full_display: "", link_display: "")}
+      @feed.hide
       @feed.destroy
       set_sidebar_variables
-      ActionCable.server.broadcast("feed_#{current_user.id}", refresh_all: true, display: render_to_string(@feeds))
     end
   end
 
@@ -57,7 +56,7 @@ class FeedsController < ApplicationController
 
   def update_feed
     if @feed.update
-      ActionCable.server.broadcast("feed_#{current_user.id}", display: render_to_string(@feed))
+      @feed.show
     else
       @feed.destroy
       not_found

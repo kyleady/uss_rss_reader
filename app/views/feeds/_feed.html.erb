@@ -20,14 +20,17 @@
   <%= ")" %>
 </span>
 
+<% if local_assigns[:full] %>
+  </h1>
+  <p><%= feed.url %></p>
+  <p><%= feed.description %></p>
+<% end %>
+
 <% if local_assigns[:update].nil? %>
   </div>
 <% end %>
 
 <% if local_assigns[:full] %>
-  </h1>
-  <p><%= feed.url %></p>
-  <p><%= feed.description %></p>
   <div class=
     <%="article_links_#{feed.id}"%>
   >

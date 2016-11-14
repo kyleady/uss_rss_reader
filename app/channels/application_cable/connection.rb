@@ -1,4 +1,8 @@
 module ApplicationCable
+  # Base connection for all channels
+  #
+  # @author [ Kyle Ady, Tyler Hampton ]
+  # @since 0.0.1
   class Connection < ActionCable::Connection::Base
     identified_by :current_user
 
@@ -9,7 +13,7 @@ module ApplicationCable
     protected
 
     def find_verified_user
-      verified_user = User.find(cookies.permanent[:user])
+      User.find(cookies.permanent[:user])
     rescue
       reject_unauthorized_connection
     end
