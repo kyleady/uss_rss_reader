@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   def unread_articles
     articles = []
-    @feeds.each { |feed| articles.concat(feed.articles) } if @feeds
+    @feeds.each { |feed| articles.concat(feed.articles) unless feed.removing } if @feeds
     articles.select do |article|
       !article.viewed?
     end

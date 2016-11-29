@@ -18,7 +18,11 @@ class Feed < ApplicationRecord
   end
 
   def update
-    update_valid_feed
+    if !removing
+      update_valid_feed
+    else
+      destroy
+    end
     true
   rescue
     false
@@ -35,6 +39,7 @@ class Feed < ApplicationRecord
   end
 
   def hide
+    update_attribute(:removing, true)
     articles.each { |article| article.hide(user_id) }
     ActionCable.server.broadcast("feed_#{user_id}", feed: id, full_display: '', link_display: '')
   end

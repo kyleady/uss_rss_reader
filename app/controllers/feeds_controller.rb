@@ -39,7 +39,6 @@ class FeedsController < ApplicationController
       not_found
     else
       @feed.hide
-      @feed.destroy
       set_sidebar_variables
     end
   end
