@@ -8,7 +8,7 @@ require 'open-uri'
 class Feed < ApplicationRecord
   belongs_to :user
   has_many :articles, dependent: :destroy
-  validates :url, uniqueness: { scope: :user_id, message: 'Duplicate feed' }
+  validates :url, uniqueness: { scope: [:removing, :user_id], message: 'Duplicate feed' }
 
   def self.get(user_id, args)
     feed = Feed.find args[:id]
