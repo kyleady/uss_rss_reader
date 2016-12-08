@@ -27,7 +27,7 @@ class FeedsController < ApplicationController
       flash.alert = 'Please Create An Account'
       redirect_to new_user_path
     else
-      @feed = Feed.new(url: params[:feed][:url])
+      @feed = Feed.new(url: standardize_url(params[:feed][:url]) )
       @user.feeds << @feed
       validate_feed
     end
@@ -65,5 +65,10 @@ class FeedsController < ApplicationController
   def not_found
     flash.alert = 'Invalid Feed'
     redirect_to new_feed_path
+  end
+
+  def standardize_url(url)
+    url = url.downcase
+    'http://' + url unless /$http:\/\//
   end
 end
