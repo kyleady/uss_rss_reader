@@ -49,7 +49,7 @@ class FeedsController < ApplicationController
     if @feed.valid?
       update_feed
     else
-      not_found
+      not_found 'Duplicate Feed'
     end
   end
 
@@ -62,13 +62,13 @@ class FeedsController < ApplicationController
     end
   end
 
-  def not_found
-    flash.alert = 'Invalid Feed'
+  def not_found(msg = 'Invalid Feed')
+    flash.alert = msg
     redirect_to new_feed_path
   end
 
   def standardize_url(url)
-    url = url.downcase
-    'http://' + url unless /$http:\/\//
+    url = 'http://' + url if (/^https?:\/\//i =~ url).nil?
+    url.downcase
   end
 end
