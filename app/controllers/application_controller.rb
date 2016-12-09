@@ -11,12 +11,24 @@ class ApplicationController < ActionController::Base
     set_user_feeds
   end
 
+  def current_user
+    User.find(cookies.permanent[:user])
+  rescue
+    nil
+  end
+
+  def unread_articles
+    articles = []
+    @feeds.each { |feed| articles.concat(feed.articles) unless feed.removing } if @feeds
+    articles.select do |article|
+      !article.viewed?
+    end
+  end
+
   private
 
   def set_current_user
-    @user = User.find(cookies.permanent[:user]) if cookies.permanent[:user]
-  rescue
-    @user = nil
+    @user = current_user
   end
 
   def set_user_feeds

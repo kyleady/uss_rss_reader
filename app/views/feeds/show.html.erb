@@ -1,23 +1,5 @@
-<h1><%= @feed.title %></h1>
-<p><%= @feed.url %></p>
-<p><%= @feed.description %></p>
-
-<% @feed.articles.each do |article| %>
-  <ul>
-    <p><%= link_to article.title, feed_article_path(@feed,article) %>
-
-      <span style = "float:right;">
-        <%= "[" %>
-        <% if article.viewed? %>
-          <%= link_to "✔", toggle_viewed_feed_article_path(@feed,article) %>
-        <% else %>
-          <%= link_to "_",  toggle_viewed_feed_article_path(@feed,article) %>
-        <% end %>
-        <%= "]" %>
-      </span>
-
-    </p>
-  </ul>
-<% end %>
+<div id = "feeds">
+<%= render @feed, full: true %>
+</div>
 
 <%= link_to "<< Back to Feeds List", feeds_path %>

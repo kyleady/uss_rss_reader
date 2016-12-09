@@ -11,7 +11,11 @@ class FeedsController < ApplicationController
 
   def show
     @feed = Feed.get cookies.permanent[:user], params
-    not_found if @feed.nil?
+    if @feed.nil?
+      not_found
+    else
+      @articles = @feed.articles
+    end
   end
 
   def new
@@ -23,7 +27,7 @@ class FeedsController < ApplicationController
       flash.alert = 'Please Create An Account'
       redirect_to new_user_path
     else
-      @feed = Feed.new(url: params[:feed][:url])
+      @feed = Feed.new(url: standardize_url(params[:feed][:url]))
       @user.feeds << @feed
       validate_feed
     end
@@ -34,8 +38,8 @@ class FeedsController < ApplicationController
     if @feed.nil?
       not_found
     else
-      @feed.destroy
-      redirect_to feeds_path
+      @feed.hide
+      set_sidebar_variables
     end
   end
 
@@ -45,21 +49,26 @@ class FeedsController < ApplicationController
     if @feed.valid?
       update_feed
     else
-      not_found
+      not_found 'Duplicate Feed'
     end
   end
 
   def update_feed
     if @feed.update
-      redirect_to feed_path(@feed)
+      @feed.show
     else
       @feed.destroy
       not_found
     end
   end
 
-  def not_found
-    flash.alert = 'Invalid Feed'
+  def not_found(msg = 'Invalid Feed')
+    flash.alert = msg
     redirect_to new_feed_path
+  end
+
+  def standardize_url(url)
+    url = 'http://' + url if (%r{^https?://}i =~ url).nil?
+    url.downcase
   end
 end

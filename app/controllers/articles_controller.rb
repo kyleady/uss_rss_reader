@@ -18,7 +18,6 @@ class ArticlesController < ApplicationController
       not_found
     else
       @article.read(!@article.viewed?)
-      redirect_to :back
     end
   end
 

@@ -21,18 +21,11 @@
         <% end %>
       </span>
       <hr>
-      <% @feeds.each do |feed| %>
-        <p>
-          <%= link_to feed.title, feed_path(feed) %>
-          <span style = "float:right;">
-            <%= "(" %>
-            <%= link_to "x", feed_path(feed), method: :delete %>
-            <%= ")" %>
-          </span>
-        </p>
-      <% end %>
+      <div class="feed_links">
+        <%= render @feeds %>
+      </div>
       <hr>
-      <%= form_for(@newfeed, :html => {:style => 'color: black; width: 100%' } ) do |f| %>
+      <%= form_for(@newfeed, remote: true, html: {:style => 'color: black; width: 100%' }) do |f| %>
         <ul>
         <% @newfeed.errors.full_messages.each do |error| %>
           <li><%= error %></li>
@@ -43,9 +36,7 @@
           <%= f.submit "+" %>
         </p>
       <% end %>
-
     </div>
-
     <div class = "main articles section">
       <%= yield %>
     </div>

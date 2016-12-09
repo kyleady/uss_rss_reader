@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :feeds do
     resources :articles do
       member do
-        get 'toggle_viewed'
+        post 'toggle_viewed'
       end
     end
   end

@@ -1,0 +1,42 @@
+<% return if feed.removing %>
+<% if local_assigns[:update].nil? %>
+  <div class=
+  <% if local_assigns[:full] %>
+    <%="feed_link_#{feed.id}"%>
+  <% else %>
+    <%="feed_#{feed.id}" %>
+  <% end %>
+  >
+<% end %>
+
+<% if local_assigns[:full] %>
+  <h1><%= feed.title %>
+<% else %>
+  <p><%= link_to feed.title, feed_path(feed) %>
+<% end %>
+
+<span style = "float:right;">
+  <%= "(" %>
+  <%= link_to "x", feed_path(feed), method: :delete %>
+  <%= ")" %>
+</span>
+
+<% if local_assigns[:full] %>
+  </h1>
+  <p><%= feed.url %></p>
+  <p><%= feed.description %></p>
+<% end %>
+
+<% if local_assigns[:update].nil? %>
+  </div>
+<% end %>
+
+<% if local_assigns[:full] %>
+  <div class=
+    <%="article_links_#{feed.id}"%>
+  >
+    <%= render feed.articles %>
+  </div>
+<% else %>
+  </p>
+<% end %>

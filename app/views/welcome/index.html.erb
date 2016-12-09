@@ -1,9 +1,7 @@
-
-
 <h1 style = "text-align: center;"><%= "Latest" %></h1>
 <hr>
-<% @articles.each do |article| %>
-  <h3><%= article.title %></h3>
-  <p><%= article.description.html_safe %></p>
-  <hr>
-<% end %>
+<div class=
+  <%="articles_unread"%>
+>
+  <%= render @articles, full: true %>
+</div>

@@ -1,0 +1,29 @@
+<% if local_assigns[:update].nil? %>
+  <div class=
+  <% if local_assigns[:full] %>
+    <%="article_link_#{article.id}"%>
+  <% else %>
+    <%="article_#{article.id}" %>
+  <% end %>
+  >
+<% end %>
+
+<h3>
+  <%= check_box_tag 'viewed', feed_article_path(article.feed,article), article.viewed?, class: "article-hasBeenRead", remote: true %>
+  <% if local_assigns[:full] %>
+    <%= article.title %>
+  <% else %>
+    <%= link_to article.title, feed_article_path(article.feed,article) %>
+  <% end %>
+</h3>
+<hr>
+<% if local_assigns[:full] %>
+  <p><%= article.description.html_safe %></p>
+  <p><%= link_to article.link, article.link %></p>
+  <p><%= article.author %></p>
+  <p><%= article.pub_date %></p>
+<% end %>
+
+<% if local_assigns[:update].nil? %>
+  </div>
+<% end %>

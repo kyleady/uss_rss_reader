@@ -22,6 +22,25 @@ class Article < ApplicationRecord
     nil
   end
 
+  def render(args = {})
+    ApplicationController.render(self, locals: args)
+  end
+
+  def show(user_id)
+    ActionCable.server.broadcast("article_#{user_id}",
+                                 feed: feed_id,
+                                 unread: !viewed?,
+                                 full_display: render(full: true),
+                                 link_display: render(full: false))
+  end
+
+  def hide(user_id)
+    ActionCable.server.broadcast("article_#{user_id}",
+                                 article: id,
+                                 full_display: '',
+                                 link_display: '')
+  end
+
   private
 
   def clean

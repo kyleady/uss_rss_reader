@@ -1,7 +1,4 @@
-<h1><%= @article.title %></h1>
-<p><%= @article.description.html_safe %></p>
-<p><%= link_to @article.link %></p>
-<p><%= @article.author %></p>
-<p><%= @article.pub_date %></p>
-
+<div = "articles">
+  <%= render @article, full: true %>
+</div>
 <%= link_to "<< Back to Articles List", feed_path(@article.feed) %>
